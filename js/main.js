@@ -13,7 +13,7 @@ const getIntFromRange = (min, max) => {
 
 const isCommentValid = (comment) => comment === '' || comment.length <= COMMENT_MAX_LENGTH;
 
-const isTagsValid = (tags) => {
+const areTagsValid = (tags) => {
   if (tags === '') {
     return true;
   }
@@ -32,4 +32,4 @@ const isTagsValid = (tags) => {
 
 getIntFromRange();
 isCommentValid();
-isTagsValid();
+areTagsValid();
