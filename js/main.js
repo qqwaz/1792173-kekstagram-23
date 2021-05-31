@@ -18,16 +18,11 @@ const areTagsValid = (tags) => {
     return true;
   }
 
-  tags = tags.toLowerCase().split(' ');
+  tags = tags.toLowerCase().split(/[ ]+/);
 
-  if (tags.length > 5 ||
-    tags.some((tag, index, arr) =>
-      index !== arr.indexOf(tag) || !TAG_PATTERN.test(tag))
-  ) {
-    return false;
-  }
-
-  return true;
+  return tags.length <= 5 &&
+    tags.every((tag, index, arr) =>
+      index === arr.indexOf(tag) && TAG_PATTERN.test(tag));
 };
 
 getIntFromRange();
