@@ -1,15 +1,12 @@
+import { generatePhotos } from './data.js';
 
 const COMMENT_MAX_LENGTH = 140;
 const TAG_PATTERN = /^#[\p{L}\p{N}]{1,19}$/u;
 
 
-const getIntFromRange = (min, max) =>
-  min >= 0 && Math.ceil(min) <= Math.floor(max)
-    ? Math.floor(Math.random() * (max - min + 1) + min)
-    : -1;
-
 const isCommentValid = (comment) =>
   comment.length <= COMMENT_MAX_LENGTH;
+
 
 const areTagsValid = (tags) => {
   if (tags === '') {
@@ -23,6 +20,10 @@ const areTagsValid = (tags) => {
       index === arr.indexOf(tag) && TAG_PATTERN.test(tag));
 };
 
-getIntFromRange(0.005, 2);
+
+const photos = generatePhotos();
+// eslint-disable-next-line no-console
+console.log(photos);
+
 isCommentValid('');
 areTagsValid('');
