@@ -12,9 +12,7 @@ const areTagsValid = (tags) => {
   if (tags === '') {
     return true;
   }
-
   tags = tags.toLowerCase().split(/[ ]+/);
-
   return tags.length <= 5 &&
     tags.every((tag, index, arr) =>
       index === arr.indexOf(tag) && TAG_PATTERN.test(tag));
