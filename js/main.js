@@ -1,29 +1,10 @@
 import { generatePhotos } from './data.js';
-
-const COMMENT_MAX_LENGTH = 140;
-const TAG_PATTERN = /^#[\p{L}\p{N}]{1,19}$/u;
+import { isCommentValid, areTagsValid } from './photo.js';
 
 
-const isCommentValid = (comment) =>
-  comment.length <= COMMENT_MAX_LENGTH;
-
-
-const areTagsValid = (tags) => {
-  if (tags === '') {
-    return true;
-  }
-
-  tags = tags.toLowerCase().split(/[ ]+/);
-
-  return tags.length <= 5 &&
-    tags.every((tag, index, arr) =>
-      index === arr.indexOf(tag) && TAG_PATTERN.test(tag));
-};
-
-
-const photos = generatePhotos();
 // eslint-disable-next-line no-console
-console.log(photos);
-
-isCommentValid('');
-areTagsValid('');
+console.log(
+  generatePhotos(),
+  isCommentValid(''),
+  areTagsValid(''),
+);

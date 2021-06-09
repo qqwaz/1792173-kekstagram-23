@@ -1,21 +1,9 @@
 
-const getIntFromRange = (min, max) =>
-  min >= 0 && Math.ceil(min) <= Math.floor(max)
-    ? Math.floor(Math.random() * (max - min + 1) + min)
-    : -1;
-
-
-const getRandomFromArray = (array) => array[getIntFromRange(0, array.length - 1)];
-
-
-const createShuffledArrayOfNaturals = (length) => {
-  const array = Array.from({length: length}, (_, i) => i + 1);
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-};
+import {
+  getIntFromRange,
+  getRandomFromArray,
+  createShuffledArrayOfNaturals
+} from './utils.js';
 
 
 const PHOTOS_QUANTITY = 25;
@@ -60,14 +48,16 @@ const generatePhotos = () => createShuffledArrayOfNaturals(PHOTOS_QUANTITY)
     url: `photos/${x}.jpg`,
     description: getRandomFromArray(PHOTO_DESCRIPTIONS),
     likes: getIntFromRange(...LIKES_RANGE),
-    comments: new Array(getIntFromRange(...COMMENTS_RANGE)).fill()
-      .map(() => ({
-        'id': getIntFromRange(0, 2**32-1) - 1,
-        'avatar': `img/avatar-${getIntFromRange(1, 6)}.svg`,
-        'message': getRandomFromArray(COMMENT_MESSAGES),
-        'name': getRandomFromArray(COMMENT_NAMES),
+    comments: [...Array(getIntFromRange(...COMMENTS_RANGE))]
+      .map((_, i) => ({
+        id: i,
+        avatar: `img/avatar-${getIntFromRange(1, 6)}.svg`,
+        message: getRandomFromArray(COMMENT_MESSAGES),
+        name: getRandomFromArray(COMMENT_NAMES),
       })),
   }));
 
 
-export { generatePhotos };
+export {
+  generatePhotos
+};
