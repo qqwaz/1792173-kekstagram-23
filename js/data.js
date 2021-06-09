@@ -1,4 +1,11 @@
 
+import {
+  getIntFromRange,
+  getRandomFromArray,
+  createShuffledArrayOfNaturals
+} from './utils.js';
+
+
 const PHOTOS_QUANTITY = 25;
 const LIKES_RANGE = [15, 200];
 const COMMENTS_RANGE = [0, 10];
@@ -35,25 +42,6 @@ const COMMENT_NAMES = [
 ];
 
 
-const getIntFromRange = (min, max) =>
-  min >= 0 && Math.ceil(min) <= Math.floor(max)
-    ? Math.floor(Math.random() * (max - min + 1) + min)
-    : -1;
-
-
-const getRandomFromArray = (array) => array[getIntFromRange(0, array.length - 1)];
-
-
-const createShuffledArrayOfNaturals = (length) => {
-  const array = Array.from({length: length}, (_, i) => i + 1);
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-};
-
-
 const generatePhotos = () => createShuffledArrayOfNaturals(PHOTOS_QUANTITY)
   .map((x) => ({
     id: x,
@@ -70,4 +58,6 @@ const generatePhotos = () => createShuffledArrayOfNaturals(PHOTOS_QUANTITY)
   }));
 
 
-export { generatePhotos };
+export {
+  generatePhotos
+};
