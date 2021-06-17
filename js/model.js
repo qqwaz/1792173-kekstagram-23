@@ -16,6 +16,9 @@ const areTagsValid = (tags) => {
       index === arr.indexOf(tag) && TAG_PATTERN.test(tag));
 };
 
+isCommentValid();
+areTagsValid();
+
 export {
   photos
 };
