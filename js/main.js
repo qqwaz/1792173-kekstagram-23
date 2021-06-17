@@ -1,10 +1,8 @@
-import { generatePhotos } from './data.js';
-import { isCommentValid, areTagsValid } from './photo.js';
 
+import { getData } from './api.js';
+import { renderFetchErrorModal } from './fetch-error.js';
+import { photos } from './model.js';
+import { renderGallery } from './gallery.js';
 
-// eslint-disable-next-line no-console
-console.log(
-  generatePhotos(),
-  isCommentValid(''),
-  areTagsValid(''),
-);
+getData((data) => Object.assign(photos, data), renderFetchErrorModal)
+  .then(() => renderGallery(photos));
