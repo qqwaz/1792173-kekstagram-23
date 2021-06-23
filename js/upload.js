@@ -3,9 +3,7 @@ const COMMENT_MAX_LENGTH = 140;
 const TAG_PATTERN = /^#[\p{L}\p{N}]{1,19}$/u;
 
 
-const isCommentValid = (comment) =>
-  comment.length <= COMMENT_MAX_LENGTH;
-
+const isCommentValid = (comment) => comment.length <= COMMENT_MAX_LENGTH;
 
 const areTagsValid = (tags) => {
   if (tags === '') {
@@ -17,8 +15,6 @@ const areTagsValid = (tags) => {
       index === arr.indexOf(tag) && TAG_PATTERN.test(tag));
 };
 
+isCommentValid();
+areTagsValid();
 
-export {
-  isCommentValid,
-  areTagsValid
-};

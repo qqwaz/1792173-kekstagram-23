@@ -17,9 +17,9 @@
     <section class="img-filters  img-filters--inactive  container">
       <h2 class="img-filters__title  visually-hidden">Фильтр фотографий</h2>
       <form class="img-filters__form" action="index.html" method="get" autocomplete="off">
-        <button type=button class="img-filters__button  img-filters__button--active" id="filter-default">По умолчанию</button>
-        <button type=button class="img-filters__button" id="filter-random">Случайные</button>
-        <button type=button class="img-filters__button" id="filter-discussed">Обсуждаемые</button>
+        <button type="button" class="img-filters__button  img-filters__button--active" id="filter-default">По умолчанию</button>
+        <button type="button" class="img-filters__button" id="filter-random">Случайные</button>
+        <button type="button" class="img-filters__button" id="filter-discussed">Обсуждаемые</button>
       </form>
     </section>
 
@@ -151,16 +151,8 @@
           </div>
 
           <!-- Комментарии к изображению -->
-          <div class="social__comment-count">5 из <span class="comments-count">125</span> комментариев</div>
+          <div class="social__comment-count"><span class="shown-comments-count">5</span> из <span class="total-comments-count">125</span> комментариев</div>
           <ul class="social__comments">
-            <li class="social__comment">
-              <img class="social__picture" src="img/avatar-4.svg" alt="Аватар комментатора фотографии" width="35" height="35">
-              <p class="social__text">Мега фото! Просто обалдеть. Как вам так удалось?</p>
-            </li>
-            <li class="social__comment">
-              <img class="social__picture" src="img/avatar-3.svg" alt="Аватар комментатора фотографии" width="35" height="35">
-               <p class="social__text">Да это фоташоп!!!!!!!!</p>
-            </li>
           </ul>
 
           <!-- Кнопка для загрузки новой порции комментариев -->
@@ -195,10 +187,20 @@
     </div>
   </footer>
 
+
+
+  <!-- Комментарий к фотографии -->
+  <template id="social-comment">
+    <li class="social__comment">
+      <img class="social__picture" src="avatar.png" alt="Name" width="35" height="35">
+      <p class="social__text">Comment</p>
+    </li>
+  </template>
+
   <!-- Шаблон изображения случайного пользователя -->
   <template id="picture">
     <a href="#" class="picture">
-      <img class="picture__img" src="" width="182" height="182" alt="Случайная фотография">
+      <img class="picture__img" src="picture.jpg" width="182" height="182" alt="Случайная фотография">
       <p class="picture__info">
         <span class="picture__comments"></span>
         <span class="picture__likes"></span>
@@ -207,11 +209,21 @@
   </template>
 
   <!-- Сообщение с ошибкой загрузки изображения -->
-  <template id="error">
+  <template id="upload-error">
     <section class="error">
       <div class="error__inner">
         <h2 class="error__title">Ошибка загрузки файла</h2>
         <button type="button" class="error__button">Загрузить другой файл</button>
+      </div>
+    </section>
+  </template>
+
+  <!-- Сообщение с ошибкой загрузки страницы -->
+  <template id="fetch-error">
+    <section class="error">
+      <div class="error__inner">
+        <h2 class="error__title">Error description</h2>
+        <button type="button" class="error__button">Обновить страницу</button>
       </div>
     </section>
   </template>
