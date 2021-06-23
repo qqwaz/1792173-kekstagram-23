@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 
 const COMMENTS_BLOCK_SIZE = 5;
 
@@ -24,11 +23,11 @@ const pictureCloseButtonClickHandler = () => {
   pictureClose();
 };
 
-const pictureClose = () => {
+function pictureClose() {
   document.removeEventListener('keydown', pictureCloseButtonEscapeKeydownHandler);
   pictureElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
-};
+}
 
 const createCommentElement = (comment) => {
   const element = pictureCommentTemplate.content.cloneNode(true);

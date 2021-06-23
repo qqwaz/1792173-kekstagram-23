@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 
 const errorButtonClickHandler = () => {
   closeFetchErrorModal();
@@ -18,12 +17,12 @@ const documentClickHandler = (evt) => {
   }
 };
 
-const closeFetchErrorModal = () => {
+function closeFetchErrorModal() {
   document.removeEventListener('keydown', documentEscapeKeydownHandler);
   document.removeEventListener('click', documentClickHandler);
   document.querySelector('.error').remove();
   document.body.classList.remove('modal-open');
-};
+}
 
 const renderFetchErrorModal = (error) => {
   const element = document.querySelector('#fetch-error').content.cloneNode(true);
