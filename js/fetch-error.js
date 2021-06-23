@@ -1,40 +1,38 @@
 /* eslint-disable no-use-before-define */
 
-const ErrorButtonClickHandler = () => {
+const errorButtonClickHandler = () => {
   closeFetchErrorModal();
   document.location.reload();
 };
 
-const DocumentEscapeKeydownHandler = (evt) => {
+const documentEscapeKeydownHandler = (evt) => {
   if (evt.key === 'Escape') {
+    evt.preventDefault();
     closeFetchErrorModal();
   }
 };
 
-const DocumentClickHandler = (evt) => {
+const documentClickHandler = (evt) => {
   if (!evt.target.closest('.error__inner')) {
     closeFetchErrorModal();
   }
 };
 
 const closeFetchErrorModal = () => {
-  document.removeEventListener('keydown', DocumentEscapeKeydownHandler);
-  document.removeEventListener('click', DocumentClickHandler);
+  document.removeEventListener('keydown', documentEscapeKeydownHandler);
+  document.removeEventListener('click', documentClickHandler);
   document.querySelector('.error').remove();
   document.body.classList.remove('modal-open');
 };
 
 const renderFetchErrorModal = (error) => {
-  const el = document.querySelector('#error').content.cloneNode(true);
-  const title = el.querySelector('.error__title');
-  title.textContent = error;
-  const btn = el.querySelector('.error__button');
-  btn.textContent = 'Перегрузить страницу';
-  btn.addEventListener('click', ErrorButtonClickHandler);
-  document.addEventListener('keydown', DocumentEscapeKeydownHandler);
-  document.addEventListener('click', DocumentClickHandler);
+  const element = document.querySelector('#fetch-error').content.cloneNode(true);
+  element.querySelector('.error__title').textContent = error;
+  element.querySelector('.error__button').addEventListener('click', errorButtonClickHandler);
+  document.addEventListener('keydown', documentEscapeKeydownHandler);
+  document.addEventListener('click', documentClickHandler);
   document.body.classList.add('modal-open');
-  document.querySelector('body').append(el);
+  document.querySelector('body').appendChild(element);
 };
 
 export {

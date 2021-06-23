@@ -2,7 +2,6 @@
 const COMMENT_MAX_LENGTH = 140;
 const TAG_PATTERN = /^#[\p{L}\p{N}]{1,19}$/u;
 
-const photos = [];
 
 const isCommentValid = (comment) => comment.length <= COMMENT_MAX_LENGTH;
 
@@ -19,6 +18,3 @@ const areTagsValid = (tags) => {
 isCommentValid();
 areTagsValid();
 
-export {
-  photos
-};
