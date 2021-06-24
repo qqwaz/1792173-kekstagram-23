@@ -1,8 +1,11 @@
 
 import { renderPicture } from './picture.js';
 import { initFilters } from './filters.js';
+import { throttle } from './utils.js';
 
 let pictures;
+
+const RENDER_THROTTLE_DELAY = 500;
 
 const pictureContainerElement = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content;
@@ -28,13 +31,13 @@ const createPhotoPreviewElement = (picture) => {
   return element;
 };
 
-function renderPictures(filteredPictures) {
+const renderPictures = throttle((filteredPictures) => {
   const fragment = document.createDocumentFragment();
   filteredPictures.forEach((picture) => fragment.appendChild(createPhotoPreviewElement(picture)));
   document.querySelectorAll('.picture')
     .forEach((element) => element.parentNode.removeChild(element));
   pictureContainerElement.appendChild(fragment);
-}
+}, RENDER_THROTTLE_DELAY);
 
 const renderGallery = (data) => {
   pictures = Array.from(data);

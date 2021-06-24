@@ -18,9 +18,31 @@ const createShuffledArrayOfNaturals = (length) => {
   return array;
 };
 
+function throttle(func, delay) {
+  let isThrottled = false, lastThis, lastArguments;
+
+  function wrapper() {
+    if (isThrottled) {
+      [lastThis, lastArguments] = [this, arguments];
+      return;
+    }
+    func.apply(this, arguments);
+    isThrottled = true;
+    setTimeout(() => {
+      isThrottled = false;
+      if (lastArguments) {
+        wrapper.apply(lastThis, lastArguments);
+        [lastThis, lastArguments] = [];
+      }
+    }, delay);
+  }
+  return wrapper;
+}
+
 export {
   log,
   getIntFromRange,
   getRandomFromArray,
-  createShuffledArrayOfNaturals
+  createShuffledArrayOfNaturals,
+  throttle
 };
