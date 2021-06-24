@@ -35,7 +35,7 @@ const loadComments = () => {
 };
 
 const renderComments = (pictureComments) => {
-  Object.assign(comments, pictureComments);
+  comments = Array.from(pictureComments);
   shownCount = 0;
   totalCount = comments.length;
   totalCountElement.textContent = totalCount;
@@ -47,11 +47,11 @@ const clearComments = () => {
   loaderButtonElement.classList.remove('hidden');
 };
 
-const pictureCommentsLoaderButtonClickHandler = () => {
+const loaderButtonClickHandler = () => {
   loadComments();
 };
 
-loaderButtonElement.addEventListener('click', pictureCommentsLoaderButtonClickHandler);
+loaderButtonElement.addEventListener('click', loaderButtonClickHandler);
 
 export {
   renderComments,

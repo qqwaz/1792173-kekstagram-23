@@ -27,7 +27,7 @@ const renderPicture = (picture) => {
   pictureImgElement.src = picture.url;
   pictureLikesCountElement.textContent = picture.likes;
   pictureDescriptionElement.textContent = picture.description;
-  renderComments(pictureElement, picture.comments);
+  renderComments(picture.comments);
   document.addEventListener('keydown', documentEscapeKeydownHandler);
   pictureElement.classList.remove('hidden');
 };
