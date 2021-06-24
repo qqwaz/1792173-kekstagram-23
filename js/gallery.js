@@ -1,18 +1,21 @@
 
 import { renderPicture } from './picture.js';
+import { initFilters } from './filters.js';
+import { throttle } from './utils.js';
 
-const pictures = [];
+let pictures;
+
+const RENDER_THROTTLE_DELAY = 500;
 
 const pictureContainerElement = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content;
-const pictureFiltersElement = document.querySelector('.img-filters');
 
 pictureContainerElement.addEventListener('click', (evt) => {
-  const pictureIdAttr = evt.target.closest('.picture').dataset.id;
-  if (!pictureIdAttr) {
+  const pictureElement = evt.target.closest('.picture');
+  if (!pictureElement) {
     return;
   }
-  const pictureId = Number.parseInt(pictureIdAttr, 10);
+  const pictureId = Number.parseInt(pictureElement.dataset.id, 10);
   const picture = pictures.find((x) => x.id === pictureId);
   renderPicture(picture);
 });
@@ -28,13 +31,17 @@ const createPhotoPreviewElement = (picture) => {
   return element;
 };
 
-const renderGallery = (data) => {
-  Object.assign(pictures, data);
-
+const renderPictures = throttle((filteredPictures) => {
   const fragment = document.createDocumentFragment();
-  pictures.forEach((picture) => fragment.appendChild(createPhotoPreviewElement(picture)));
+  filteredPictures.forEach((picture) => fragment.appendChild(createPhotoPreviewElement(picture)));
+  document.querySelectorAll('.picture')
+    .forEach((element) => element.parentNode.removeChild(element));
   pictureContainerElement.appendChild(fragment);
-  pictureFiltersElement.classList.remove('img-filters--inactive');
+}, RENDER_THROTTLE_DELAY);
+
+const renderGallery = (data) => {
+  pictures = Array.from(data);
+  initFilters(renderPictures, pictures);
 };
 
 export {
