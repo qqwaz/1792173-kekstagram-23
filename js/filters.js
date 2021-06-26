@@ -30,7 +30,7 @@ const applyFilter = (data, filterId) => {
   }
 };
 
-const initFilters = (render, data) => {
+const renderFilters = (render, data) => {
   filterElements.forEach((filter) => {
     filter.addEventListener('click', (evt) => {
       filterElements.forEach((element) => element.id === evt.target.id
@@ -46,5 +46,5 @@ const initFilters = (render, data) => {
 };
 
 export {
-  initFilters
+  renderFilters
 };

@@ -1,10 +1,14 @@
-import { renderComments, clearComments } from './comments.js';
-
 const pictureElement = document.querySelector('.big-picture');
 const pictureCloseButtonElement = pictureElement.querySelector('.big-picture__cancel');
 const pictureImgElement = pictureElement.querySelector('.big-picture__img img');
 const pictureLikesCountElement = pictureElement.querySelector('.likes-count');
 const pictureDescriptionElement = pictureElement.querySelector('.social__caption');
+
+let
+  renderComments = null,
+  clearComments = null;
+
+const setCommentsHandlers = (render, clear) => [renderComments, clearComments] = [render, clear];
 
 const documentEscapeKeydownHandler = (evt) => {
   if (evt.key === 'Escape') {
@@ -35,5 +39,6 @@ const renderPicture = (picture) => {
 pictureCloseButtonElement.addEventListener('click', pictureCloseButtonClickHandler);
 
 export {
-  renderPicture
+  renderPicture,
+  setCommentsHandlers
 };

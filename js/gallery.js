@@ -1,6 +1,4 @@
 
-import { renderPicture } from './picture.js';
-import { initFilters } from './filters.js';
 import { throttle } from './utils.js';
 
 let pictures;
@@ -10,15 +8,17 @@ const RENDER_THROTTLE_DELAY = 500;
 const pictureContainerElement = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content;
 
-pictureContainerElement.addEventListener('click', (evt) => {
-  const pictureElement = evt.target.closest('.picture');
-  if (!pictureElement) {
-    return;
-  }
-  const pictureId = Number.parseInt(pictureElement.dataset.id, 10);
-  const picture = pictures.find((x) => x.id === pictureId);
-  renderPicture(picture);
-});
+const addPictureClickListener = (renderPictureHandler) => {
+  pictureContainerElement.addEventListener('click', (evt) => {
+    const pictureElement = evt.target.closest('.picture');
+    if (!pictureElement) {
+      return;
+    }
+    const pictureId = Number.parseInt(pictureElement.dataset.id, 10);
+    const picture = pictures.find((x) => x.id === pictureId);
+    renderPictureHandler(picture);
+  });
+};
 
 const createPhotoPreviewElement = (picture) => {
   const element = pictureTemplate.cloneNode(true);
@@ -39,9 +39,10 @@ const renderPictures = throttle((filteredPictures) => {
   pictureContainerElement.appendChild(fragment);
 }, RENDER_THROTTLE_DELAY);
 
-const renderGallery = (data) => {
+const renderGallery = (data, renderFiltersHandler, renderPictureHandler) => {
   pictures = Array.from(data);
-  initFilters(renderPictures, pictures);
+  renderFiltersHandler(renderPictures, pictures);
+  addPictureClickListener(renderPictureHandler);
 };
 
 export {
