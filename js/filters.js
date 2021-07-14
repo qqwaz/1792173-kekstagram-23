@@ -1,4 +1,6 @@
 
+import { getRandomFromArray } from './utils.js';
+
 const FILTERS = {
   random: {
     id: 'filter-random',
@@ -15,18 +17,14 @@ const pictureFiltersElement = document.querySelector('.img-filters');
 const filterElements = document.querySelectorAll('.img-filters__button');
 
 const applyFilter = (data, filterId) => {
-  const array = Array.from(data);
+  const filtered = Array.from(data);
   switch (filterId) {
     case FILTERS.random.id:
-      for (let i = 0; i < FILTERS.random.options.length; i++) {
-        const j = i + Math.floor(Math.random() * (data.length - i - 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array.slice(0, FILTERS.random.options.length);
+      return getRandomFromArray(filtered, FILTERS.random.options.length);
     case FILTERS.discussed.id:
-      return array.sort((min, max) => min.comments.length < max.comments.length ? 1 : -1);
+      return filtered.sort((min, max) => min.comments.length < max.comments.length ? 1 : -1);
     default:
-      return array;
+      return filtered;
   }
 };
 

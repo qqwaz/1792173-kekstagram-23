@@ -1,11 +1,11 @@
 
 import { renderPicture } from './picture.js';
 import { initFilters } from './filters.js';
-import { throttle } from './utils.js';
-
-let pictures;
+import { log, throttle } from './utils.js';
 
 const RENDER_THROTTLE_DELAY = 500;
+
+let pictures;
 
 const pictureContainerElement = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content;

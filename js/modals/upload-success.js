@@ -1,33 +1,32 @@
 
 const errorButtonClickHandler = () => {
-  closeFetchErrorModal();
+  closeModal();
   document.location.reload();
 };
 
 const documentEscapeKeydownHandler = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
-    closeFetchErrorModal();
+    closeModal();
   }
 };
 
 const documentClickHandler = (evt) => {
   if (!evt.target.closest('.error__inner')) {
-    closeFetchErrorModal();
+    closeModal();
   }
 };
 
-function closeFetchErrorModal() {
+function closeModal() {
   document.removeEventListener('keydown', documentEscapeKeydownHandler);
   document.removeEventListener('click', documentClickHandler);
-  document.querySelector('.error').remove();
+  document.querySelector('.success').remove();
   document.body.classList.remove('modal-open');
 }
 
-const renderFetchErrorModal = (error) => {
-  const element = document.querySelector('#fetch-error').content.cloneNode(true);
-  element.querySelector('.error__title').textContent = error;
-  element.querySelector('.error__button').addEventListener('click', errorButtonClickHandler);
+const renderUploadSuccessModal = () => {
+  const element = document.querySelector('#upload-success').content.cloneNode(true);
+  element.querySelector('.success__button').addEventListener('click', errorButtonClickHandler);
   document.addEventListener('keydown', documentEscapeKeydownHandler);
   document.addEventListener('click', documentClickHandler);
   document.body.classList.add('modal-open');
@@ -35,5 +34,5 @@ const renderFetchErrorModal = (error) => {
 };
 
 export {
-  renderFetchErrorModal
+  renderUploadSuccessModal
 };
