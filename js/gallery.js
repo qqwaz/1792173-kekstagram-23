@@ -1,7 +1,7 @@
 
 import { renderPicture } from './picture.js';
 import { initFilters } from './filters.js';
-import { log, throttle } from './utils.js';
+import { throttle } from './utils.js';
 
 const RENDER_THROTTLE_DELAY = 500;
 
