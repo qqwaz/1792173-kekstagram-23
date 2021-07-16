@@ -1,16 +1,15 @@
 
-import { renderUploadErrorModal } from './modals/upload-error.js';
-import { renderUploadSuccessModal } from './modals/upload-success.js';
+import { Modals } from './modals.js';
 import { getDescriptionValidity, getHashtagsValidity } from './validation.js';
 
-const SCALE_CONSTRAINTS = {
+const ScaleConstraints = {
   min: 25,
   max: 100,
   step: 25,
   default: 100,
 };
 
-const EFFECTS = {
+const Effects = {
   chrome: {
     class: 'effects__preview--chrome',
     filter: 'grayscale',
@@ -91,7 +90,7 @@ const closeButtonClickHandler = () => {
 
 const uploadFileInputChangeHandler = () => {
   previewImgElement.src = URL.createObjectURL(uploadFileInputElement.files[0]);
-  setPreviewImgScale(SCALE_CONSTRAINTS.default);
+  setPreviewImgScale(ScaleConstraints.default);
   setPreviewImgFilter(null);
   document.addEventListener('keydown', documentEscapeKeydownHandler);
   document.body.classList.add('modal-open');
@@ -103,21 +102,21 @@ const uploadFormSubmitHandler = (handler) => (evt) => {
   if (!descriptionInputElement.reportValidity() || !hashtagsInputElement.reportValidity()) {
     return;
   }
-  handler(renderUploadSuccessModal, renderUploadErrorModal, new FormData(uploadFormElement));
+  handler(Modals.uploadSuccess, Modals.uploadError, new FormData(uploadFormElement));
   closeUploadModal();
 };
 
 const scaleSmallerButtonClickHandler = () => {
   const scale = Number.parseInt(scaleValueInputElement.value, 10);
-  if (scale > SCALE_CONSTRAINTS.min) {
-    setPreviewImgScale(scale - SCALE_CONSTRAINTS.step);
+  if (scale > ScaleConstraints.min) {
+    setPreviewImgScale(scale - ScaleConstraints.step);
   }
 };
 
 const scaleBiggerButtonClickHandler = () => {
   const scale = Number.parseInt(scaleValueInputElement.value, 10);
-  if (scale < SCALE_CONSTRAINTS.max) {
-    setPreviewImgScale(scale + SCALE_CONSTRAINTS.step);
+  if (scale < ScaleConstraints.max) {
+    setPreviewImgScale(scale + ScaleConstraints.step);
   }
 };
 
@@ -141,35 +140,32 @@ function closeUploadModal() {
 }
 
 function setPreviewImgScale(scale) {
-  scaleValueInputElement.value = `${scale}%`;
+  scaleValueInputElement.setAttribute('value', `${scale}%`);
   previewImgElement.style.transform = `scale(${scale / 100})`;
 }
 
-
-// ---------------------------------------------------------------
-
 function setPreviewImgFilter(effect) {
   if (currentEffect) {
-    previewImgElement.classList.remove(EFFECTS[currentEffect].class);
+    previewImgElement.classList.remove(Effects[currentEffect].class);
   }
 
-  if (!EFFECTS[effect]) {
+  if (!Effects[effect]) {
     sliderContainerElement.classList.toggle('hidden', true);
     previewImgElement.style.filter = 'none';
 
     currentEffect = null;
   } else {
     sliderContainerElement.classList.toggle('hidden', false);
-    previewImgElement.classList.add(EFFECTS[effect].class);
+    previewImgElement.classList.add(Effects[effect].class);
 
     currentEffect = effect;
     sliderElement.noUiSlider.updateOptions({
       range: {
-        min: EFFECTS[effect].min,
-        max: EFFECTS[effect].max,
+        min: Effects[effect].min,
+        max: Effects[effect].max,
       },
-      step: EFFECTS[effect].step,
-      start: EFFECTS[effect].max,
+      step: Effects[effect].step,
+      start: Effects[effect].max,
     });
   }
 }
@@ -185,11 +181,9 @@ const effectsContainerElementClickHandler = (evt) => {
 const sliderElementUpdateHandler = (values, handle) => {
   if (currentEffect) {
     sliderValueElement.value = values[handle];
-    previewImgElement.style.filter = `${EFFECTS[currentEffect].filter}(${sliderValueElement.value}${EFFECTS[currentEffect].measure})`;
+    previewImgElement.style.filter = `${Effects[currentEffect].filter}(${sliderValueElement.value}${Effects[currentEffect].measure})`;
   }
 };
-
-// ------------------------------------------------------------------
 
 const initUpload = (sendDataHandler) => {
   closeButtonElement.addEventListener('click', closeButtonClickHandler);

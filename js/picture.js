@@ -1,3 +1,4 @@
+
 import { renderComments, clearComments } from './comments.js';
 
 const pictureElement = document.querySelector('.big-picture');

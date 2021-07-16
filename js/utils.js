@@ -1,7 +1,4 @@
 
-// eslint-disable-next-line no-console
-const log = (...x) => console.log(...x);
-
 const throttle = (func, delay) => {
   let isThrottled = false, lastThis, lastArguments;
 
@@ -32,7 +29,6 @@ const getRandomFromArray = (array, length) => {
 };
 
 export {
-  log,
   throttle,
   getRandomFromArray
 };

@@ -1,7 +1,7 @@
 
 import { getRandomFromArray } from './utils.js';
 
-const FILTERS = {
+const Filters = {
   random: {
     id: 'filter-random',
     options: {
@@ -19,9 +19,9 @@ const filterElements = document.querySelectorAll('.img-filters__button');
 const applyFilter = (data, filterId) => {
   const filtered = Array.from(data);
   switch (filterId) {
-    case FILTERS.random.id:
-      return getRandomFromArray(filtered, FILTERS.random.options.length);
-    case FILTERS.discussed.id:
+    case Filters.random.id:
+      return getRandomFromArray(filtered, Filters.random.options.length);
+    case Filters.discussed.id:
       return filtered.sort((min, max) => min.comments.length < max.comments.length ? 1 : -1);
     default:
       return filtered;
